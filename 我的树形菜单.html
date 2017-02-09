@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+    <li>一级菜单
+        <ul>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>一级菜单
+        <ul>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>一级菜单
+        <ul>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+            <li>二级菜单
+                <ul>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                    <li>三级菜单</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<script>
+    //获取所有li
+    var _lis = document.getElementsByTagName("li");
+    //添加点击事件
+    for(i = 0;i < _lis.length;i++){
+        _lis[i].onclick = function(e){
+            e = e || window.event;
+            e.stopPropagation?
+                    e.stopPropagation():
+                    e.cancelBubble = true;
+
+            if(this.children.length > 0){
+                console.log(this.children[0]);
+                if(getStyle(this.children[0],"display") == "block"){
+                    this.children[0].style.display = "none"
+                }else{
+                    this.children[0].style.display = "block"
+                }
+
+            }
+        }
+    }
+    function getStyle(dom,styleName){
+        return dom.currentStyle?
+                dom.currentStyle[styleName]:
+                getComputedStyle(dom)[styleName];
+    }
+</script>
+</body>
+</html>

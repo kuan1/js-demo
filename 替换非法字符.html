@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #container{width:800px;box-shadow:2px 2px 5px 0 #ccc;margin:100px auto;}
+        button{display:block;width:120px;height:30px;margin:20px auto;border-radius:10px;}
+    </style>
+</head>
+<body>
+<div id="container">
+    word 文档是我们最常用的工具，无论是办公还是在家庭里都会经常用到，我们如何在word 文档中编辑文字呢。下面就简单的介绍一下。
+</div>
+<button id="btn">点击替换</button>
+<script>
+    var _con = document.getElementById("container");
+    btn.onclick = function(){
+        var _src = prompt("请输入要替换的字");
+        var _target = prompt("请输入要替换成的字");
+        var _s = new RegExp(_src,"ig");
+        _con.textContent = _con.textContent.replace(_s,_target);
+    };
+</script>
+</body>
+</html>

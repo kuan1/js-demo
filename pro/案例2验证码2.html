@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #show{display:block;width:150px;height:30px;font-size:20px;text-align: center;line-height: 30px;border:solid 1px #ccc;}
+    </style>
+</head>
+<body>
+<span id="show">点击刷新</span>
+<script>
+    // 验证码中可能包含的字符
+    var _chars = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a", "b","c","d","e"];
+
+    var _show = document.getElementById("show");
+    // 定义函数，生成并展示验证码
+    function valideCode() {
+        var _no1 = Math.floor(Math.random() * _chars.length);
+        var _no2 = Math.floor(Math.random() * _chars.length);
+        var _no3 = Math.floor(Math.random() * _chars.length);
+        var _no4 = Math.floor(Math.random() * _chars.length);
+
+        // 拼接验证码
+        var _vc = _chars[_no1] + _chars[_no2] + _chars[_no3] + _chars[_no4];
+
+        _show.innerHTML = _vc;
+    }
+    /*点击刷新验证码*/
+    _show.onclick = function() {
+        valideCode();
+    }
+
+    valideCode();//执行函数，页面打开的时候就会显示验证码
+</script>
+</body>
+</html>

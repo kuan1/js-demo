@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin:0; padding:0;}
+        input{width:600px;height:30px;line-height:30px;}
+        #box{
+            display:none;
+            width:600px;
+            list-style:none;
+            border:solid 1px #ccc;
+        }
+        #box span{float:right;}
+        #box li{height:20px;line-height:20px;font-size:12px;border-bottom: #ccc dotted 1px;width:96%;}
+    </style>
+</head>
+<body>
+<input type="text" name="search" id="search">
+<ul id="box">
+   <li>关键词<span>12条</span></li>
+</ul>
+
+<script>
+    // https://suggest.taobao.com/sug?code=utf-8&q=关键字&callback=test
+    // 获取输入框的DOM对象
+    var search = document.getElementById("search");
+    search.onblur = function() {
+        box.style.display = "none";
+    }
+    // 给输入框添加按键事件
+    search.onkeyup = function() {
+        // 创建script标签
+        var _sc = document.getElementById("taobao");
+        if(_sc != null) {
+            document.body.removeChild(_sc);
+        }
+        _sc = document.createElement("script");
+        _sc.id = "taobao";
+
+        _sc["src"] = "https://suggest.taobao.com/sug?code=utf-8&q="+search.value+"&callback=suggest";
+        // 将标签追加到页面中
+        document.body.appendChild(_sc);
+    }
+    // 回调函数
+    function suggest(data) {
+        // console.log(data); // 通过打印，能确定已经获取到数据
+        // 显示提示建议div窗口
+        var _box = document.getElementById("box");
+        _box.style.display = "block";
+        _box.textContent = "";
+
+        // 循环添加标签
+        for(var i = 0; i < data.result.length; i++) {
+            // 创建li标签
+            var _li = document.createElement("li");
+            var _span = document.createElement("span");
+            // li中添加数据
+            _li.textContent = data.result[i][0];
+            _span.textContent = data.result[i][1];
+            // 追加标签
+            _li.appendChild(_span);
+            _box.appendChild(_li);
+        }
+    }
+</script>
+</body>
+</html>

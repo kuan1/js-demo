@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{width:100px;height:100px;
+            background-color: orange;position:absolute;}
+    </style>
+</head>
+<body>
+    <button id="backTo">沿着原路线返回</button>
+    <div id="box"></div>
+
+
+    <script>
+        // 创建一个空数组，记录鼠标位置
+        var _pos = [];
+        // 鼠标按下
+        box.onmousedown = function(e) {
+            _pos = [];//每次开始拖动的时候重新记录位置
+
+            e = e || window.event;
+            // 当鼠标按下的时候就获取，不会变化
+            var _ox = e.offsetX;
+            var _oy = e.offsetY;
+
+            // 鼠标按下的同时，在文档上移动鼠标
+            document.onmousemove = function(e) {
+                e = e||window.event;
+                // 移动鼠标的手，鼠标在文档中的位置在变化[clientX ,clientY]
+                var _cx = e.clientX;
+                var _cy = e.clientY;
+
+                box.style.left = (_cx - _ox) + "px";
+                box.style.top = (_cy - _oy) + "px";
+                // 记录位置 {'_left':'80px'}
+                _pos.push({'_left': + (_cx-_ox) + 'px','_top': + (_cy-_oy)+'px'});
+
+                console.log(_pos);
+            }
+        }
+
+        document.onmouseup = function() {
+            document.onmousemove = null;
+        }
+
+        backTo.onclick = function() {
+            var index = _pos.length - 1;
+
+            var t = setInterval(function() {
+                box.style.left = _pos[index]._left;
+                box.style.top = _pos[index]._top;
+
+                index--;
+                if(index < 0){
+                    clearInterval(t);
+                }
+            }, 10)
+        }
+    </script>
+</body>
+</html>

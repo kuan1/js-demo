@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    *{margin:0;padding:0}
+    div{width:100%;height:100%;}
+    span{width:50px;height:50px;background:rgba(255,232,33,0.7);border-radius:50%;position:fixed;display:block;background:no-repeat;background-size:50px 50px;}
+</style>
+<body>
+<div id="container">
+</div>
+</body>
+<script>
+    document.onclick = function(e){
+        e = e || window.event;
+        //点击创建小球
+        var d = document.createElement("span");
+        //将创建的小球插入container中
+        var _div = document.getElementById("container");
+        _div.appendChild(d);
+        //设置小球出现的位置在鼠标点击的地方
+        d.style.top = e.clientY - d.offsetHeight + "px";
+        d.style.left = e.clientX - d.offsetWidth + "px";
+        //调用设置小球随机颜色
+        getColor(d);
+
+        //设置小球出现后的运动
+        var arr = [-1,1];//用一个数组来保存-1,1两个数，作为小球出现后x、y的运动
+        //声明变量x、y作为小球x方向和y轴方向上的速度，随机获取上边数组-1，+1，小球出现后的运动方向就会有4种
+        var x = arr[parseInt(Math.random() * 2)];
+        var y = arr[parseInt(Math.random() * 2)];
+
+        //用定时函数让小球运动
+        setInterval(function(){
+            d.style.left = d.offsetLeft + x + "px";
+            d.style.top = d.offsetTop + y + "px";
+            //判断边界改变小球的运动方向，让小球在屏幕中来回碰撞
+            if(d.offsetTop + d.offsetHeight >= document.documentElement.clientHeight){
+                y = -1;
+            }
+            if(d.offsetLeft + d.offsetWidth > document.documentElement.clientWidth){
+                x = -1;
+            }
+            if(d.offsetTop < 0){
+                y = 1;
+            }
+            if(d.offsetLeft < 0){
+                x = 1;
+            }
+        },0.1)
+    };
+
+    //随机颜色函数
+    function getColor(dom){
+        var no1 = parseInt(Math.random() * 255);
+        var no2 = parseInt(Math.random() * 255);
+        var no3 = parseInt(Math.random() * 255);
+        var no4 = Math.random();
+        dom.style.backgroundColor = "rgba(" + no1 + "," + no2 + "," + no3 + "," + no4 + ")";
+    }
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{margin:0;padding:0}
+        #container{width:1000px;margin:0 auto;}
+        #container>div{width:100%;height:500px;background-color:#ccc;font-size:120px;line-height:500px;text-align: center;color:#fff;}
+        #container>div:nth-of-type(2){background-color:red;}
+        #container>div:nth-of-type(3){background-color:blue;}
+        #container>div:nth-of-type(4){background-color:orange;}
+        #container>div:nth-of-type(5){background-color:cadetblue;}
+        #container>div:nth-of-type(6){background-color:pink;}
+        #container>div:nth-of-type(7){background-color:peru;}
+        #container>div:nth-of-type(8){background-color:cadetblue;}
+        #container>div:nth-of-type(9){background-color:black;}
+        #container>div#header,#container>div#footer{height:200px;}
+        #container>div#header{height:380px;line-height:380px;}
+        ul{list-style:none;position:fixed;top:280px;margin-left:-80px;}
+        ul>li{cursor:pointer;width:30px;height:30px;font-size:20px;line-height:30px;text-align:center;background-color:#fff;border:solid 1px #333;}
+        ul>li.active{background-color:red;color:#fff;}
+    </style>
+</head>
+<body>
+<div id="container">
+    <ul id="floor">
+        <li>1F</li>
+        <li>2F</li>
+        <li>3F</li>
+        <li>4F</li>
+        <li>5F</li>
+        <li>6F</li>
+        <li>7F</li>
+        <li>8F</li>
+    </ul>
+    <div id="header">PAGE HEADER</div>
+    <div>1楼</div>
+    <div>2楼</div>
+    <div>3楼</div>
+    <div>4楼</div>
+    <div>5楼</div>
+    <div>6楼</div>
+    <div>7楼</div>
+    <div>8楼</div>
+    <div id="footer"></div>
+</div>
+<script>
+    // 获取所有的li和div标签
+    var _lis = document.getElementById("floor").getElementsByTagName("li");
+    var _divs = document.getElementById("container").getElementsByTagName("div");
+
+    // 添加滚动条时间
+    window.onscroll = function() {
+        // 获取到滚动条的卷去网页的高度
+        var _stop = document.documentElement.scrollTop || document.body.scrollTop;
+        for(var i = 0; i < _lis.length; i++) {
+            // 获取楼层的offsetTop和offsetHeight进行比较
+            var _floorTop = _divs[i+1].offsetTop;
+            var _floorHeight = _divs[i+1].offsetHeight;
+            if(_stop + 200 >= _floorTop) {// 当条件满足的时候，对应的楼层亮灯
+                for(var j = 0; j < _lis.length; j++) {
+                    _lis[j].className = "";
+                }
+                _lis[i].className = "active";
+            }
+        }
+    }
+</script>
+</body>
+</html>

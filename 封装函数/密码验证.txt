@@ -1,0 +1,26 @@
+//封装验证密码的函数
+    function validate(dom,tishi,rules,str){
+        var s = document.getElementById(dom);
+        var e = document.getElementById(tishi);
+        if(rules.test(s.value)){
+            e.textContent = "验证通过";
+            e.style.color ="blue"
+        }else{
+            e.textContent = str;
+            e.style.color = "red"
+        }
+        s.onblur = function(){
+            if(s.value.trim().length == 0){
+                e.textContent = "输入不能为空";
+                e.style.color = "red";
+            }
+        }
+    }
+
+
+//调用函数
+    var rules = /^(123)\w{5}$/;
+
+    un.onkeyup = function(){
+        validate("un","show",rules,"密码为123开头8位数字")
+    };

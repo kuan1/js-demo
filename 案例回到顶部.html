@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{height:2000px;width:200px;}
+    </style>
+</head>
+<body>
+<div></div>
+<button id="backTop">回到顶部</button>
+<script>
+    backTop.onclick = function() {
+
+        var speed = 50;
+        var timer = setInterval(function() {
+            // 获取卷去网页的高度
+            var _top = document.documentElement.scrollTop||document.body.scrollTop;
+            // 滚动网页，向顶部
+            window.scrollTo(0, _top - speed);
+            // 逐渐减小每次执行的速度
+            speed--;
+            if(speed <= 1) {
+                // 当speed减小到1时,以1的速度匀速运动到顶部
+                speed = 1;
+                // 当网页滚动条回到顶部时，清除定时器
+                if(_top <= 0) {
+                    clearInterval(timer);
+                }
+            }
+        }, 10);
+    }
+    /*
+    window.onscroll = function() {
+
+        滚动条卷去网页的高度
+            document.documentElement.scrollTop
+            || document.body.scrollTop
+
+        console.log(document.body.scrollTop, document.body.scrollHeight);
+    }*/
+</script>
+</body>
+</html>

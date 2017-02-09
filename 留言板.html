@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        #container{width:800px;border:2px solid #aaa;margin:20px auto;box-shadow:3px 3px 3px 0 #aaa;}
+        #msg{width:600px;min-height:100px;margin:20px auto;font-size:30px;line-height:50px;overflow:auto;border:1px solid #000;}
+        #box{height:50px;width:600px;margin:0 auto;}
+        #send,#cancelMsg{display:block;float:right;width:100px;height:30px;margin:10px;}
+        #his{width:600px;min-height:200px;margin:10px auto;}
+        #his p{line-height:50px;font-size:20px;border-bottom:2px dotted #555;}
+    </style>
+<body>
+<div id="container">
+    <div contenteditable="true" id="msg"></div>
+    <div id="box">
+        <button id="send">点击留言</button>
+        <button id="cancelMsg">撤回留言</button>
+    </div>
+    <div id="his">
+        <p>历史留言</p>
+        <p>历史留言</p>
+        <p>历史留言</p>
+    </div>
+</div>
+<script>
+    /*
+    利用开关开控制不发送不想发送的字
+    利用开关开控制不连续撤回
+     */
+    //获取标签
+    var msg = document.getElementById("msg");
+    var his = document.getElementById("his");
+    var flag =true;//开始开关
+
+    send.onclick = function(){
+        if(flag == true){
+            //创建元素节点
+            var _p = document.createElement("p");
+            _p.textContent = msg.textContent;
+            //讲标签插入第一个历史聊天的前边
+            if(msg.textContent.trim().length == 0){
+                var error = document.getElementById("error");
+                flag = false;
+                msg.textContent = "内容不能为空";
+                setTimeout(function(){
+                    msg.textContent = "";
+                    flag =true;
+                },1000);
+                setTimeout(function(){
+                    error.style.display = "none";
+                },1000)
+            }else{
+                var x = his.firstElementChild;
+                his.insertBefore(_p,x);
+
+                flag = false;
+                msg.textContent = "成功发送";
+                setTimeout(function(){
+                    msg.textContent = "";
+                    flag =true;
+                },1000);
+
+                var n1 = his.children.length;
+                var date = new Date();
+            }
+        }
+
+        //3秒内撤回留言
+        cancelMsg.onclick = function(){
+            var date1 = new Date();
+            var n2 = his.children.length;
+            if(date1 - date <= 3000 && n1 == n2){
+                his.removeChild(his.firstChild)
+            }else{
+                flag = false;
+                msg.textContent = "只能撤回3秒内发送的最后一条消息";
+                setTimeout(function(){
+                    msg.textContent = "";
+                    flag = true;
+                },1000)
+            }
+        }
+    }
+
+
+</script>
+</body>
+</html>

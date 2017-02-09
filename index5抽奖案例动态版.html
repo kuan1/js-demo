@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .container{margin:auto;width:500px;height:500px;border:#ddd dotted 2px; border-radius:8px}
+        #show{display: block;height:300px;width:300px;margin:auto;border-radius:100%;padding:8px;border:#ddd solid 5px;font-size:32px;}
+        #res{display:block;font-size:50px;line-height:300px;text-align:center;width:300px;height:300px;background-color: #ccc;border-radius:100%;}
+        button{width:100px;height:30px;border-radius:8px;margin:auto;display: block;margin-top:30px;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span id="show">
+            <span id="res">等待抽奖</span>
+        </span>
+        <button onclick="start()">抽奖</button>
+        <button onclick="stop()">停止</button>
+    </div>
+
+    <script>
+        /*
+        在JS中，有这样两个系统函数，专门用于指定间隔一定的时间重复执行函数
+
+        1. 定时函数：setInterval(fn, times)：间隔times毫秒，执行fn函数
+            1.1 停止定时函数：clearInterval(name);
+        2. 延时函数：setTimeout(fn, times)：延迟times毫秒，执行一次fn函数
+            2.1. 停止延时函数：clearTimeout(name);
+         */
+
+        // 定义名单:通过数组进行保存
+        // var names = ["张小凡", "碧瑶", "陆雪琪", "曾书书", "林惊羽", "鬼王", "野狗"];
+        var names = new Array("张小凡", "碧瑶", "陆雪琪", "曾书书", "林惊羽", "鬼王", "野狗");
+        // 定义一个计时器变量
+        var times;
+        /**
+         * 开始抽奖
+         */
+        function start() {
+            // 间隔100毫秒，重复执行一次chouJiang
+            times = setInterval(chouJiang, 1000);
+        }
+
+        function stop() {
+            // 停止指定的定时函数
+            clearInterval(times);
+        }
+
+        // 抽奖函数
+        function chouJiang() {
+            // 随机值【随机生成的0~1 * 数组的长度--> 0~数组的长度-1之间的整数】
+            var index = parseInt(Math.random() * names.length);
+
+            // 获取随机的名称:通过数组的下标，获取对应的数据
+            var name = names[index];
+
+            // 将数据添加到标签中，展示到页面上
+            var res = document.getElementById("res");
+            res.innerHTML = name;
+        }
+    </script>
+
+</body>
+</html>

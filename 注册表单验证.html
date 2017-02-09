@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>注册案例操作</title>
+    <style>
+        .container{width:600px;height:400px;border:#ccc;border-radius:5px;margin:auto;box-shadow: 5px 5px 5px 0 #ccc;}
+        form{width:400px;margin:auto;}
+        label{width:100px;font-size:18px;display:block;}
+        #username,#pwd,#phone{width:100%;height:30px;border:#ccc solid 1px;border-radius:5px;}
+        input[type="submit"]{width:100px;height:40px;border:#ccc solid 1px;background-color:#333;color:#fff; border-radius:1px;font-size:18px;}
+        span{display:block;width:100%;height:30px;color:red;font-size:14px;}
+    </style>
+    <script>
+        /*
+            JS入门
+                为什么出现了客户端脚本语言[编程语言]
+                >>>> 表单验证
+                    >>> 单个表单元素进行验证
+                        验证步骤：
+                            1.给表单标签添加onkeyup="变量名称()"
+                            2.js中定义一个：function 变量名称() {}
+                                2.1. 获取表单元素：var x = document.getElementById("id值");
+                                2.2. 获取表单元素值： var xValue = x.value;
+                                2.3. 进行判断验证[非空、长度、数字]
+                                2.4. 在后面的span标签中，输出提示信息
+                                        var spanEror = document.getElementById("span#id值");
+                                        spanEror.innerHTML = 提示信息;
+                    >>> 提交的时候，进行完整验证
+                        验证步骤：
+                            1. 给form标签，添加一个onsubmit="return 变量名称()"
+                            2. 在JS中，定义一个 function 变量名称() {}
+                                2.1. 使用前面单个元素的验证进行判断处理
+                                2.2. 验证通过，return true;
+                                2.3. 验证不通过，return false;
+                >>>> 页面特效
+
+                >>>> 抄写代码
+                    步骤：
+                        1. 先写网页标签，展示出完整的网页效果
+
+                        2. 在网页标签中，给第一个表单元素，添加onkeyup="...."
+                        3. 开始写script标签中，和onkeyup对应的那个function代码
+
+                        4. 给第二个元素添加onkeyup="...."
+                        5. 开始写script标签中，和onkeyup对应的那个function代码
+        */
+
+        /**
+         * JS验证用户账号
+         */
+        function validateUsername() {
+            // 1. 获取账号输入标签
+            var un = document.getElementById("username");
+            // 2. 获取输入的数据
+            var unValue = un.value;
+            // 3. 判断是否正确
+            var msg = "";// 保存错误信息的变量
+            var flag = false;//定义变量，用来记录是否验证通过
+            if(unValue == "") {
+                msg = "账号不能为空";
+                flag = false;
+            } else if(unValue.length <= 6 || unValue.length > 18) {
+                msg = "账号长度不合法，必须大于6位，小于18位。";
+                flag = false;
+            } else {
+                msg = "账号合法!可以使用！";
+                flag = true;
+            }
+            // 4. span#error_un中输出提示信息
+            var spanUn = document.getElementById("error_un");
+            spanUn.innerHTML = msg;
+            return flag;
+        }
+
+        /**
+         * 验证用户密码
+         * TODO:validatePassword()
+         */
+
+        /**
+         * 验证手机号码
+         */
+        function validatePhone() {
+            // 1. 获取手机号码输入框标签
+            var ph = document.getElementById("phone");
+            // 2. 获取输入的手机号码内容
+            var phValue = ph.value;
+            // 3. 判断内容是否正确
+            var msg = "";// 用来保存提示信息
+            var flag = false;//用来记录验证是否通过的变量[通过true|不通过false]
+            if(phValue == "") {
+                msg = "手机号码不能为空!";
+                flag = false;
+            } else if(isNaN(phValue)) {
+                msg = "手机号码必须是数字";
+                flag = false;
+            } else if(phValue.length != 11) {
+                msg = "手机号码的长度有误";
+                flag = false;
+            } else {
+                msg = "手机号码可用!";
+                flag = true;
+            }
+            // 4. 输出提示信息
+            var spanPh = document.getElementById("error_ph");
+            spanPh.innerHTML = msg;
+            return flag;
+        }
+
+        /**
+         * 验证是否能提交
+         */
+        function validateSubmit() {
+            if(validateUsername() && validatePhone()) {
+                // 验证 通过，可以提交
+                return true;
+            } else {
+                // 验证 不通过，不允许提交
+                alert("请完善页面信息");
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <form action="http://www.1000phone.com" onsubmit="return validateSubmit()">
+            <label for="username">账号：</label>
+            <input type="text" onkeyup="validateUsername()" id="username">
+            <span id="error_un">账号不能为空，长度6~18位</span>
+            <br />
+            <label for="pwd">密码：</label>
+            <input type="password" id="pwd">
+            <span id="error_pw">密码不能为空，长度8~18位</span>
+            <br />
+            <label for="phone">手机号码</label>
+            <input type="text" onkeyup="validatePhone()" id="phone">
+            <span id="error_ph">手机号码不能为空，长度11位</span>
+            <br />
+            <input type="submit" value="注册新用户">
+        </form>
+    </div>
+</body>
+</html>

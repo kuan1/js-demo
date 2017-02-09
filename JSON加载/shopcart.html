@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车页面</title>
+    <style>
+        *{margin:0;padding:0;}
+        #container{width:1200px;border:solid 1px #ccc;height:500px;}
+        #goodslist{width:1000px;}
+        #goodslist img{width:150px;height:auto;}
+    </style>
+</head>
+<body>
+<h1>购物车页面</h1>
+<div id="container">
+    <table id="goodslist">
+        <tr>
+            <th>商品图片</th>
+            <th>商品名称</th>
+            <th>商品单价</th>
+            <th>购买数量</th>
+            <th>小计金额</th>
+        </tr>
+        <!--<tr>
+            <td><img src="images/aw11.jpg" alt=""></td>
+            <td>外星人</td>
+            <td>14999</td>
+            <td>1</td>
+            <td>14999</td>
+        </tr>-->
+    </table>
+</div>
+<script>
+    var _gl = document.getElementById("goodslist");
+    // 将读取并加载cookie数据封装在函数中
+    window.onload = function() {
+        loadShopCart();
+    }
+    /**
+     * 1读取cookie数据
+     */
+    function loadShopCart() {
+        // 1. 获取cookie中的所有数据
+        var _json = decodeURIComponent(document.cookie);
+        var _jsonArr = _json.split(";");
+        console.log(_jsonArr);
+        for(var i = 0; i < _jsonArr.length; i++) {
+            var _jsonStr = _jsonArr[i];
+            _jsonStr = _jsonStr.substring(_jsonStr.indexOf("{"));
+            var _jsonObj = JSON.parse(_jsonStr.trim());
+            // console.log(_jsonObj);
+            loadGoods(_jsonObj);
+        }
+    }
+    /**
+     * 2 将JSON数据加载展示到页面上
+     */
+    function loadGoods(_json) {
+        // 创建tr标签
+        var _tr = document.createElement("tr");
+
+        var _td1 = document.createElement("td");
+        var _img = document.createElement("img");
+        _img["src"] = _json.gimg;
+        _td1.appendChild(_img);
+
+        var _td2 = document.createElement("td");
+        _td2.textContent = _json.gname;
+
+        var _td3 = document.createElement("td");
+        _td3.textContent = _json.gprice;
+
+        var _td4 = document.createElement("td");
+        _td4.textContent = _json.count;
+
+        var _td5 = document.createElement("td");
+        _td5.textContent = _json.gprice * _json.count;
+
+        _tr.appendChild(_td1);
+        _tr.appendChild(_td2);
+        _tr.appendChild(_td3);
+        _tr.appendChild(_td4);
+        _tr.appendChild(_td5);
+
+        _gl.appendChild(_tr);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<script>
+    //将一部分功能封装，直接引入JS文件即可；实现了一定功能，即；插件
+    function countDown(endTime,dom){
+        setInterval(function(){
+            //获取当前系统时间
+            var date = new Date();
+            //创建结束时间
+            var end = new Date(endTime);
+            //计算两个时间之间的毫秒数
+            var time = end - date;
+            //计算时间差、天数、小时、分钟、秒数、毫秒数
+            var _d = Math.floor(time/1000/60/60/24);
+            var _h = Math.floor(time/1000/60/60%24);
+            var _m = Math.floor(time/1000/60%60);
+            var _s = Math.floor(time/1000%60);
+            var _ms = Math.floor(time%1000);
+            var times = `距离结束时间还有${_d}天${_h}小时${_m}分钟${_s}秒${_ms}`;
+            console.log(times);
+            //获取标签展示时间
+           var s = document.getElementById(dom);
+            s.textContent = times
+        },99)
+    }
+    //调用函数
+    countDown("2017/1/1 00:00:00:000","show1")
+    
+</script>

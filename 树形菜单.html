@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul id="menu">
+    <li>一级菜单1
+        <ul>
+            <li>二级菜单1
+                <ul>
+                    <li>三级菜单1</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>一级菜单2
+        <ul>
+            <li>二级菜单2
+                <ul>
+                    <li>三级菜单2</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>一级菜单3
+        <ul>
+            <li>二级菜单3
+                <ul>
+                    <li>三级菜单3</li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+<script>
+    var _lis = document.getElementsByTagName("li");
+    var _menu = document.getElementById("menu");
+    _menu.onclick = function(e){
+        e = e|| window.event;
+        var _target = e.target || e.srcElement;
+        if(_target.nodeName.toLowerCase() == "li" && _target.children.length > 0 ){
+            var _display = getStyle(_target.children[0],"display");
+            if(_display == "none"){
+                _target.children[0].style.display = "block";
+
+            }else{
+                _target.children[0].style.display = "none"
+            }
+        }
+    };
+    //获取属性值
+    function getStyle(dom,styleName){
+        return  dom.currentStyle?
+                dom.currentStyle[styleName]:
+                getComputedStyle(dom)[styleName]
+    }
+</script>
+</body>
+</html>

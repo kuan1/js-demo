@@ -1,0 +1,26 @@
+//窗口拖动封装函数
+    function eleMove(dom){
+        //获取鼠标距离元素边得距离
+        var _con = document.getElementById(dom);
+        _con.onmousedown = function(e){
+            e = e || window.event;
+            var xo = e.offsetX;
+            var yo = e.offsetY;
+_con.style.cursor = "pointer";
+            //获取鼠标距离浏览器边缘的距离
+            document.onmousemove = function(e){
+                e = e || window.event;
+                var xc = e.clientX;
+                var yc = e.clientY;
+                _con.style.left = xc - xo + "px";
+                _con.style.top = yc - yo + "px";
+            };
+            //鼠标抬起的时候清除函数
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            }
+        }
+    }
+
+    //调用函数
+    eleMove("container");

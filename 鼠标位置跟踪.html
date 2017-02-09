@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #show{width:300px;height:30px;line-height: 30px;font-size:20px;display: block;}
+    </style>
+</head>
+<body>
+    <span id="show">鼠标位置</span>
+
+    <script>
+    /*
+    鼠标在网页中移动，在span中显示位置
+        也就是将移动事件，添加到网页文档对象上
+     */
+    var show = document.getElementById("show");
+
+    document.onmousemove = function(e) {
+        e = e || window.event;
+
+        show.textContent = "鼠标当前位置：[X:" + e.pageX + ";Y:" + e.pageY + "]";
+    }
+    </script>
+</body>
+</html>

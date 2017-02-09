@@ -1,0 +1,6 @@
+// 获取属性值
+    function getStyle(dom,styleName){
+        return dom.currentStyle?
+                dom.currentStyle[styleName]:
+                getComputedStyle(dom)[styleName];
+    }

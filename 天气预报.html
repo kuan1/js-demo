@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #show{display:block;width:800px;height:200px;background:orange;border:1px solid #333;}
+    </style>
+</head>
+<body>
+    <input type="text" id="city">
+    <button id="checkWeather">查询天气</button><br />
+    <span id="show">展示天气预报</span>
+
+    <script>
+        var cw = document.getElementById("checkWeather");
+        cw.onclick = function() {
+            var http;
+            if(window.XMLHttpRequest) {
+                http = new XMLHttpRequest();
+            } else {
+                http = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200) {
+                    // show.textContent = http.responseText;
+                    var json = JSON.parse(http.responseText);
+                    console.log(json);
+                    show.textContent = "城市:" + json.data.city;
+                    show.textContent += "===温馨提示:" + json.data.ganmao;
+                    show.textContent += "===今天天气:" + json.data.forecast[0].type;
+                    show.textContent += ",最低温度:" + json.data.forecast[0].low;
+                    show.textContent += ",最高温度:" + json.data.forecast[0].high;
+                    show.textContent += ",风力:" + json.data.forecast[0].fengli;
+                    show.textContent += ",风向:" + json.data.forecast[0].fengxiang;
+                }
+            }
+
+            var cityName = city.value;
+
+            http.open("GET", "http://wthrcdn.etouch.cn/weather_mini?city=" + cityName,true);
+            http.send();
+        }
+    </script>
+</body>
+</html>

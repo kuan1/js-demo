@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索</title>
+    <style>
+        #show{display:block;width:800px;height:200px;background:orange;border:1px solid #333;}
+    </style>
+</head>
+<body>
+    <input type="text" id="word">
+    <button id="search">查询关键词</button><br />
+    <span id="show">展示搜索推荐词</span>
+
+    <!--
+    https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=
+    同源策略，主要是用来检测域名、主机、端口这些数据的
+    网页上有一个特殊的标签script，它有一个特殊的属性src，可以指向任意一个网址
+    就是利用src动态指向具体的网址，伪装访问，将访问到的数据包装成js文件，如果
+    js文件引入到网页中，是可以直接执行的
+    -->
+    <script>
+        // search.onclick = function() {
+        word.onkeyup = function() {
+            // 获取搜索关键词
+            var txt = word.value;
+            // 开始搜索
+            var _s = document.createElement("script");
+            // 添加src属性
+            _s["src"]="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+txt+"&cb=test";
+
+            document.body.appendChild(_s);
+        }
+
+        function test(d) {
+            show.textContent = "展示搜索关键词：";
+            for(var i = 0; i < d.s.length; i++) {
+                show.textContent += d.s[i] + ";";
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<style>
+    *{margin:0;padding:0}
+    div{width:100%;height:100%;}
+    span{width:50px;height:50px;background:rgba(255,232,33,0.7);border-radius:50%;position:fixed;display:block;background:no-repeat;background-size:50px 50px;}
+</style>
+<body>
+<div id="container">
+</div>
+</body>
+<script>
+    //设置小球运动
+    document.onclick = function(e){
+        var d = document.createElement("span");
+        var _div = document.getElementById("container");
+        _div.appendChild(d);
+        //点击出球位置
+        e = e || window.event;
+        d.style.top = e.clientY - d.offsetHeight + "px";
+        d.style.left = e.clientX - d.offsetWidth + "px";
+        //随机颜色
+        getColor(d);
+        //获取随机图片
+        //getImages(d);
+
+        var arr = [-2,-1,1,2];
+        var x = arr[parseInt(Math.random() * 4)];
+        var y = arr[parseInt(Math.random() * 4)];
+        setInterval(function(){
+            d.style.left = d.offsetLeft + x + "px";
+            d.style.top = d.offsetTop + y + "px";
+            if(d.offsetTop + d.offsetHeight >= document.documentElement.clientHeight){
+                y = -1;
+            }
+            if(d.offsetLeft + d.offsetWidth > document.documentElement.clientWidth){
+                x = -1;
+            }
+            if(d.offsetTop < 0){
+                y = 1;
+            }
+            if(d.offsetLeft < 0){
+                x = 1;
+            }
+        },0.1)
+    };
+
+    //随机函数
+    function getColor(dom){
+        var no1 = parseInt(Math.random() * 255);
+        var no2 = parseInt(Math.random() * 255);
+        var no3 = parseInt(Math.random() * 255);
+        var no4 = Math.random();
+        dom.style.backgroundColor = "rgba(" + no1 + "," + no2 + "," + no3 + "," + no4 + ")";
+    }
+
+    //随机图片
+    function getImages(dom){
+        var no = parseInt(Math.random() * 10);
+        dom.style.backgroundImage = "url(images/" + no + ".JPG)"
+    }
+</script>
+</html>

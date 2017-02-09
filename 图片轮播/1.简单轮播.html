@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="images/css/style.css">
+</head>
+<body>
+<div id="bannel">
+    <img src="images/images/1.jpg" alt="">
+    <img src="images/images/2.jpg" alt="">
+    <img src="images/images/3.jpg" alt="">
+    <img src="images/images/4.jpg" alt="">
+    <img src="images/images/5.jpg" alt="">
+</div>
+<script>
+    // 获取所有图片标签
+    var _imgs = document.getElementsByTagName("img");
+    var _bannel = document.getElementById("bannel");
+    // 定义变量，表示图片的索引
+    var _current = 0;//当前正在展示的图片索引
+    var _next = 1;// 下一张即将展示的图片索引
+
+    // 让图片间隔3S切换一次
+    var _change=setInterval(play, 1000);
+
+    /**
+     * 切换不同图片——添加动态效果
+     * 函数执行一次，图片就切换一次
+     */
+    function play() {
+        var _curLeft = 0;// 当前图片的left
+        var _nexLeft = _imgs[0].offsetWidth;// 下一张图片的left
+        var _imgWidth = _imgs[0].offsetWidth;// 图片宽度
+
+        var _timer = setInterval(function() {
+            _curLeft -= 10;// 每次减小10个像素，向左移动10个像素
+            if(_curLeft < -_imgWidth) {
+                clearInterval(_timer);
+                _current++;
+                if(_current >= _imgs.length) {
+                    _current = 0;
+                }
+            } else {
+                _imgs[_current].style.left = _curLeft + "px";
+            }
+
+            _nexLeft -= 10;// 每次减小10个像素
+            if(_nexLeft < 0) {
+                clearInterval(_timer);
+                _next ++;
+                if(_next >= _imgs.length) {_next = 0;}
+            } else {
+                _imgs[_next].style.left = _nexLeft + "px";
+            }
+        }, 10);
+    }
+
+    // 增加鼠标进入和移出的事件
+    _bannel.onmouseenter = function() {
+        clearInterval(_change);
+    }
+    _bannel.onmouseout = function() {
+        _change = setInterval(play, 3000);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{height:3000px;}
+        #box{height:300px;width:100%;background:#f00;margin-top:300px;}
+    </style>
+    <script>
+        window.onscroll = function(){
+            //获取标签
+            var b = document.getElementById("box");
+            //获取滚去高度
+            var ctop = document.documentElement.scrollTop || document.body.scrollTop;
+            if(ctop >= 300){
+                b.style.position = "fixed";
+                b.style.top = 0;
+                b.style.marginTop = 0;
+            }else{
+                b.style.display = "relative";
+                b.style.marginTop = 300 + "px";
+            }
+        }
+    </script>
+</head>
+<body>
+<div id="box"></div>
+</body>
+</html>

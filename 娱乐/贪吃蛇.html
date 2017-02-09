@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0}
+        li{list-style:none}
+        body,html{height:90%;width:100%;background:#eee;}
+        #end{position:absolute;width:100%;height:100%;background:#f00;text-align:center;line-height:400px;font-size:80px;opacity:0.5;filter:alpha(opacity = 50);top:-1000px;transition:all 1s;color:#000;}
+        #container{width:50%;height:70%;margin:70px auto;background:#fff;position:relative;border-radius:10px;box-shadow:3px 3px 3px 0 #069;overflow:hidden;}
+        li,#head{height:30px;width:30px;position:absolute;top:0;}
+        li{background:#000;left:-30px;}
+        #head{border-radius:10px;background:#f00;left:-30px;}
+        #box{width:40%;margin:0 auto;}
+        button{width:60px;height:30px;display:block;margin:5px 30px;float:right;}
+        #box div{line-height:30px;font-size:16px;float:left;}
+        #box span{display:block;width:400px;color:#f00;font-size:20px;}
+        #playGame{background:#069;color:#fff;}
+    </style>
+</head>
+<body>
+<div id="container">
+    <span id="end">Game Over</span>
+    <ul id="snake">
+        <li class="food"></li>
+        <li class="food"></li>
+        <li class="food"></li>
+    </ul>
+    <div id="head"></div>
+</div>
+<div id="box">
+    <button id="playGame">开始游戏</button>
+    <div>提示信息
+        <span id="show"></span>
+    </div>
+</div>
+
+<script>
+    //获取标签
+    var _con = document.getElementById("container");
+    var _head = document.getElementById("head");
+    var _lis = document.getElementsByClassName("food");
+    var show = document.getElementById("show");
+    var snake = document.getElementById("snake");
+    var _end = document.getElementById("end");
+    var _palyGame = document.getElementById("playGame");
+    var sore = 0;
+    flag = true;
+    //出现食物
+    var _li = document.createElement("li");
+    snake.appendChild(_li);
+
+    //调用函数开始游戏
+    playGame.onclick = function(){
+        if(flag == false){return}
+        //重置样式
+        _palyGame.style.background = "#ccc";
+        _end.style.top = -_end.offsetHeight + "px";
+        _head.style.top = 0;
+        _head.style.left = 0;
+        for(var k = _lis.length - 1;k >= 0;k--){
+            _lis[k].style.top = 0;
+            _lis[k].style.left = -_lis[0].offsetWidth + "px";
+            if(_lis.length >3){
+                snake.removeChild(snake.lastChild)
+            }
+        }
+        flag = false;
+        startGame();
+    };
+
+    //游戏函数
+    function startGame(){
+
+        var foodpos = foodShow();
+        _li.style.left = foodpos.x + "px";
+        _li.style.top = foodpos.y + "px";
+
+
+        var _speedx = _head.offsetWidth;
+        var _speedy = 0;
+        var timer = setInterval(function(){
+            //蛇身跟随
+            for(var i = _lis.length - 1;i > 0;i--){
+                _lis[i].style.left = _lis[i - 1].style.left;
+                _lis[i].style.top = _lis[i - 1].style.top;
+            }
+            _lis[0].style.left = _head.style.left;
+            _lis[0].style.top = _head.style.top;
+
+            //蛇头运动
+            _head.style.left = _head.offsetLeft + _speedx + "px";
+            _head.style.top = _head.offsetTop + _speedy + "px";
+            document.onkeyup = function(e){
+                e = e || window.event;
+                if(e.keyCode == 37){
+                    _speedx = -_head.offsetWidth;
+                    _speedy = 0;
+                }
+                if(e.keyCode == 38){
+                    _speedx = 0;
+                    _speedy = -_head.offsetHeight;
+                }
+                if(e.keyCode == 39){
+                    _speedx = _head.offsetWidth;
+                    _speedy = 0;
+                }
+                if(e.keyCode == 40){
+                    _speedx = 0;
+                    _speedy = _head.offsetHeight;
+                }
+            };
+            //判断边界
+            //四周墙壁
+            if(_head.offsetLeft < 0 || _head.offsetLeft + _head.offsetWidth > _con.offsetWidth || _head.offsetTop
+                    < 0 || _head.offsetTop + _head.offsetHeight > _con.offsetHeight){
+                clearInterval(timer);
+                show.textContent = "碰壁结束游戏！你的成绩：" + sore;
+                _end.style.top = 0;
+                _palyGame.style.background = "#069";
+                flag = true;
+            }
+            //自身
+            for(var i = _lis.length-1;i >= 0;i--){
+                if(_lis[i].offsetLeft == _head.offsetLeft && _lis[i].offsetTop == _head.offsetTop){
+                    clearInterval(timer);
+                    show.textContent = "小蛇咬到了自己结束游戏！你的成绩：" + sore;
+                    _end.style.top = 0;
+                    _palyGame.style.background = "#069";
+                    flag = true;
+                }
+            }
+
+            //蛇吃食物
+            if(_li.offsetLeft == _head.offsetLeft && _li.offsetTop == _head.offsetTop){
+
+                //增加一个class名字为food的li
+                var _addli = document.createElement("li");
+                snake.appendChild(_addli);
+                _addli.className = "food";
+
+                //重新刷新位置
+                foodpos = foodShow();
+                _li.style.left = foodpos.x + "px";
+                _li.style.top = foodpos.y + "px";
+                //判断重新刷新
+                shuaxin();
+                function shuaxin(){
+                    for(var j = _lis.length-1;j >= 0;j--){
+                        if(_lis[j].offsetLeft == _li.offsetLeft && _lis[j].offsetTop == _li.offsetTop){
+                            console.log(_li.offsetLeft + "---")
+                            foodpos = foodShow();
+                            _li.style.left = foodpos.x + "px";
+                            _li.style.top = foodpos.y + "px";
+                            console.log(_li.style.left)
+                           shuaxin()
+                        }
+                    }
+                }
+
+                sore++;
+                show.textContent = "你的成绩：" + sore;
+
+                //蛇身随机颜色
+                for(var i = _lis.length - 1;i > 0;i--){
+                    var n1 = parseInt(Math.random() * 255);
+                    var n2 = parseInt(Math.random() * 255);
+                    var n3 = parseInt(Math.random() * 255);
+                    var n4 = 1 - (Math.random() / 2);
+                    _lis[i].style.background = "rgba(" + n1 + "," + n2 + "," + n3 + "," + n4 +")";
+                }
+            }
+        },500);
+    };
+
+    //随机出现食物的位置
+    function foodShow(){
+        var _col = Math.floor(_con.offsetWidth / _head.offsetWidth);
+        var _row = Math.floor(_con.offsetHeight / _head.offsetWidth);
+
+        var _x = parseInt(Math.random() * _col) * _head.offsetWidth;
+        var _y = parseInt(Math.random() * _row) * _head.offsetHeight;
+
+        return{x:_x,y:_y};
+    }
+</script>
+</body>
+</html>

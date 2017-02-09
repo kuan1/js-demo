@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        span{display:block;width:500px;height:500px;background-color:red;color:#fff;font-size:60px;text-align: center;line-height: 500px;border-radius:50%;}
+        button{width:100px;height:30px;}
+    </style>
+</head>
+<body>
+    <span id="show">等待抽奖</span>
+    <button id="start">开始抽奖</button>
+    <script>
+        // 定义抽奖名单
+        var _names = ["陆雪琪", "鬼厉", "碧瑶", "刘振杰", "张辰"];
+        var timer;
+        var flag = true;
+
+        // 获取按钮，在点击的时候开始抽奖
+        var _btn = document.getElementById("start");
+
+        // 抽奖
+        _btn.onclick = function() {
+            if(flag) {
+                autoChouJiang();
+                _btn.innerHTML = "停止抽奖"
+            } else {
+                _btn.innerHTML = "开始抽奖"
+                clearInterval(timer);//清除定时器
+            }
+            flag = !flag;
+        }
+
+        // 定时函数
+        function autoChouJiang() {
+            var _show = document.getElementById("show");
+            timer = setInterval(function() {
+                var _no = Math.floor(Math.random() * _names.length);
+                var _name = _names[_no];
+                _show.innerHTML = _name;
+            }, 10);
+        }
+
+    </script>
+</body>
+</html>

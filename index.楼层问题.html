@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>楼层问题</title>
+    <style>
+    *{margin:0; padding:0;}
+    .container{width:1000px;margin:auto;}
+    #header{width:1000px;height:500px;line-height:400px;text-align:center;font-size:50px;background-color:#ccc;}
+    [id^="floor"]{
+    width:1000px;
+    height:500px;
+    background-color: #069;
+    font-size:50px;
+    line-height: 500px;
+    text-align:center;
+    }
+    #floor1{
+    background-color: orange;}
+    #floor2{
+    background-color: cadetblue;}
+    #floor3{
+    background-color: peru;}
+    #floor4{
+    background-color: mediumpurple;}
+    #floor5{
+    background-color: #adadad;}
+    #floor6{
+    background-color: aquamarine;}
+    #floor7{
+    background-color: peru;}
+    #flist{list-style:none;width:30px;position:fixed;top:100px;margin-left:-50px;}
+    #flist li{line-height:30px;font-size:14px;text-align: center;width:30px;height:30px;border:solid 1px #333;}
+    #flist li.active{background-color:red;color: #efeeff;font-size:18px;}
+    </style>
+</head>
+<body>
+<div class="container" id="container">
+    <ul id="flist">
+        <li id="f1" class="active">1楼</li>
+        <li id="f2">2楼</li>
+        <li id="f3">3楼</li>
+        <li id="f4">4楼</li>
+        <li id="f5">5楼</li>
+        <li id="f6">6楼</li>
+        <li id="f7">7楼</li>
+        <li id="f8">8楼</li>
+        <li id="top">TOP</li>
+    </ul>
+    <div id="header">页面头部</div>
+    <div id="floor1">一楼商品</div>
+    <div id="floor2">二楼商品</div>
+    <div id="floor3">三楼商品</div>
+    <div id="floor4">四楼商品</div>
+    <div id="floor5">五楼商品</div>
+    <div id="floor6">六楼商品</div>
+    <div id="floor7">七楼商品</div>
+    <div id="floor8">八楼商品</div>
+</div>
+</body>
+<script>
+    //获取所有div标签
+    var _div =document.getElementById("container").getElementsByTagName("div");
+    var _lis =document.getElementById("container").getElementsByTagName("li");
+    window.onscroll = function(){
+    //获取滚动条高度
+    var _stop =document.documentElement.scrollTop || document.body.scrollTop;
+    console.log(_stop);
+        //获取每一个div距离顶部的高度
+        for(var i = 0 ; i <_div.length ; i++){
+            if((_div[i+1].offsetTop - _stop <= 250)
+            && ( _div[i+1].offsetTop - _stop >=-250)){//offsetTop距离网页顶部的距离
+                _lis[i].className ="active";
+            }else{
+                _lis[i].className ="";
+            }
+        }
+    }
+</script>
+</html>

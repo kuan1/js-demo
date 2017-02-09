@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /**
+         * 选择排序法：
+         * 以下代码中：存在一定的bug，自主进行学习，并修复bug
+         *
+         */
+        var arr = [3,1,2,5,4];
+
+        console.log(arr);
+
+        for(var i = 0; i < arr.length-1; i++) {
+            var min = i; // 假设最小的数据的下标
+
+            for(var j = i; j < arr.length; j++) {
+                if(arr[min] > arr[j]){
+                    // 交换下标
+                    var temp = min;
+                    min =  j;
+                    j = temp;
+                }
+            }
+            //交换数据
+            if(min != i) {
+                var x = arr[min];
+                arr[min] = arr[i];
+                arr[i] = x;
+            }
+        }
+
+        console.log(arr);
+    </script>
+</head>
+<body>
+
+</body>
+</html>

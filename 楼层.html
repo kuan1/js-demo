@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <script>
+        function $(vid){
+            var dd = document.getElementById(vid);
+            var dv =dd.value;
+            return dv;
+        }
+             window.onscroll= function () {
+                 var lis = document.getElementById("d").getElementsByTagName("a");
+                 var divs = document.getElementById("d").getElementsByTagName("div");
+
+                 var jilu = document.documentElement.scrollTop || document.body.scrollTop;
+            //console.log(jilu);
+                 var arr = [];
+            for (var i = 0 ; i < divs.length ; i++){
+                //得到每个楼层距离顶端的高度
+                arr[i] = divs[i].offsetTop ;
+            }
+            for (var ii = 1 ; ii < arr.length ; ii++){
+                var x = arr[ii] - 200;
+                var v = x+divs[0].offsetHeight;
+                if(jilu >= x && jilu < v){
+                   lis[ii-1].style.boxShadow="0 0 2px 2px #000"
+                }else{
+                    lis[ii-1].style.boxShadow="0 0 0 0 #000"
+                }
+            }
+
+
+
+                 //console.log(arr)
+        };
+        /*window.onscroll= function () {
+
+            var juli= document.documentElement.scrollTop || document.body.scrollTop;
+            console.log(juli);
+            if(juli>=300 && juli < 700){
+
+                l1.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l1.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=700 && juli <1100){
+
+                l2.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l2.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=1100 && juli <1500){
+
+                l3.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l3.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=1500 && juli <1900){
+
+                l4.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l4.style.boxShadow=" 0 0 0 0 #000"};
+            if(juli>=1900 && juli <2300){
+
+                l5.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l5.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=2300 && juli <2700){
+
+                l6.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l6.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=2700 && juli <3100){
+
+                l7.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l7.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=3100 && juli <3500){
+
+                l8.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l8.style.boxShadow=" 0 0 0 0 #000"}
+            if(juli>=3500 && juli <3900){
+
+                l9.style.boxShadow=" 0 0 2px 2px #000";
+
+            }else{l9.style.boxShadow=" 0 0 0 0 #000"}
+
+
+        }*/
+    </script>
+    <style>
+        *{margin: 0 ;padding:0}
+        #d{position:relative;width:700px;min-height:400px;margin:0 auto;
+           margin-bottom:400px  }
+        div{width:700px;height:400px;margin:0 auto;}
+        #d1{background:#ff00ff}
+        #d2{background:#ffff00}
+        #d3{background:#0000ff}
+        #d4{background:#fe00fe}
+        #d5{background:#00ffff}
+        #d6{background:#ff00ff}
+        #d7{background:#ff0000}
+        #d8{background:#ffff0f}
+        #d9{background:#00f00f}
+        #d10{background:#f69}
+        ul{ position:fixed;width:40px;left:200px;top:20%}
+       li{width:40px;height:40px;display:block;background:#00f00f}
+       a{display:block;line-height:40px;height:40px;width:40px;
+           font-size:22px;  text-decoration: none;text-align:center;
+       margin:10px 0}
+        #l1 a{background:#ff00ff}
+        #l2 a{background:#ffff00}
+        #l3 a{background:#0000ff}
+        #l4 a{background:#fe00fe}
+        #l5 a{background:#00ffff}
+        #l6 a{background:#ff00ff}
+        #l7 a{background:#ff0000}
+        #l8 a{background:#ffff0f}
+        #l9 a{background:#00f00f}
+    </style>
+</head>
+<body>
+<div id="d">
+<ul >
+    <li id="l1" ><a class="ll" href="#d1">1</a></li>
+    <li id="l2" ><a class="ll" href="#d2">2</a></li>
+    <li id="l3" ><a class="ll" href="#d3">3</a></li>
+    <li id="l4" ><a class="ll" href="#d4">4</a></li>
+    <li id="l5" ><a class="ll" href="#d5">5</a></li>
+    <li id="l6" ><a class="ll" href="#d6">6</a></li>
+    <li id="l7" ><a class="ll" href="#d7">7</a></li>
+    <li id="l8" ><a class="ll" href="#d8">8</a></li>
+    <li id="l9" ><a class="ll" href="#d9">9</a></li>
+</ul>
+    <div id="d10"></div>
+<div id="d1"></div>
+<div id="d2"></div>
+<div id="d3"></div>
+<div id="d4"></div>
+<div id="d5"></div>
+<div id="d6"></div>
+<div id="d7"></div>
+<div id="d8"></div>
+<div id="d9"></div>
+
+</div>
+</body>
+</html>

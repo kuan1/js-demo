@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        form{padding:30px;width:80%;box-shadow:2px 2px 10px 0 #ccc;border-radius:30px;overflow:hidden;position:absolute;}
+        h1{line-height:50px;text-align:center;font-size:30px;color:orangered;border-bottom:1px solid orangered;}
+        label,input{display:block;float:left;}
+        label{width:100px;height:30px;line-height:30px;text-align:right;}
+        .ibox{margin:30px auto;margin-left:350px;overflow:hidden;}
+        input{height:30px;font-size:16px;}
+        span{display:block;float:left;color:#f00;}
+        button{width:150px;height:40px;background:orangered;border:0;border-radius:10px;margin-left:80px;box-shadow:3px 3px 3px 0 #ccc;}
+    </style>
+</head>
+<body>
+<form id="container">
+    <h1 id="loginhead">用户登录</h1>
+    <div class="ibox">
+        <label for="uname">用户名：</label>
+        <input type="text" id="uname" placeholder="请输入用户名"/>
+        <span id="unerror">*</span>
+    </div>
+    <div class="ibox">
+        <label for="pwd">密码：</label>
+        <input type="text" id="pwd" placeholder="请输入密码"/>
+        <span id="pwderror">*</span>
+    </div>
+    <div class="ibox">
+        <label for="pw">确认密码：</label>
+        <input type="text" id="pw" placeholder="请确认密码"/>
+        <span id="pwerror">*</span>
+    </div>
+    <div class="ibox">
+        <label for="mail">邮箱：</label>
+        <input type="text" id="mail" placeholder="请请输入邮箱"/>
+        <span id="mailerror">*</span>
+    </div>
+    <div class="ibox">
+        <label for="QQ">QQ：</label>
+        <input type="text" id="QQ" placeholder="请输入QQ号"/>
+        <span id="QQerror">*</span>
+    </div>
+    <div class="ibox">
+        <label for="phone">手机号：</label>
+        <input type="text" id="phone" placeholder="请输入手机号"/>
+        <span id="pherror">*</span>
+    </div>
+    <div class="ibox">
+        <label for="my">个人主页url：</label>
+        <input type="text" id="my" placeholder="请输入个人主页url"/>
+        <span id="myerror">*</span>
+    </div>
+    <div class="ibox">
+        <button>提交</button>
+    </div>
+</form>
+<script>
+    var _con = document.getElementById("container");
+    var _pwd = document.getElementById("pwd");
+    var _pw = document.getElementById("pw");
+    //验证用户名
+    var ruleUn = /^[a-zA-Z\d]{8,18}$/;
+    validate("uname","unerror",ruleUn,"密码为6-12位数字或者字母");
+    //验证密码
+    var rulePwd = /^[\w]{6,18}$/;
+    validate("pwd","pwderror",rulePwd,"密码为6-18位数字、字母或者下划线");
+    //确认密码
+    pw.onkeyup = function(){
+        var _error = document.getElementById("pwerror");
+        if(_pwd.value == _pw.value){
+            _error.textContent = "*格式正确";
+            _error.style.color = "blue"
+        }else{
+            _error.textContent = "两次密码输入不一致";
+            _error.style.color = "red"
+        }
+    };
+    //邮箱验证
+    var ruleMail = /^\w+@(126|qq|163)\.(com|cn)$/;
+    validate("mail","mailerror",ruleMail,"邮箱格式不正确");
+    //QQ验证
+    var ruleQQ = /^\d{4,10}$/;
+    validate("QQ","QQerror",ruleQQ,"QQ只能有4-10位数字");
+    //手机号验证
+    var rulePhone = /^\d{11}$/;
+    validate("phone","pherror",rulePhone,"手机只是11位数字");
+    //个人主页
+    var ruleMy = /^(http:\/\/)[a-zA-Z0-9-~]+(\.com)$/;
+    validate("my","myerror",ruleMy,"格式不正确");
+
+    //封装表单验证函数
+    function validate(dom,error,rule,word){
+        var _un = document.getElementById(dom);
+        var _error = document.getElementById(error);
+        _un.onkeyup = function(){
+            if(rule.test(_un.value)){
+                _error.textContent = "*格式正确";
+                _error.style.color = "blue"
+            }else{
+                _error.textContent = word;
+                _error.style.color = "red"
+            }
+        }
+    }
+    //鼠标拖拽效果
+    var _head = document.getElementById("loginhead");
+    _head.onmousedown = function(e){
+        e = e||window.event;
+        var _xs = e.offsetX;
+        var _ys = e.offsetY;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            var _xc = e.clientX;
+            var _yc = e.clientY;
+            var _left = _con.offsetLeft;
+            var _top = _con.offsetTop;
+            _left = _xc - _xs - _head.offsetLeft;
+            _top = _yc - _ys - _head.offsetTop;
+            _head.style.cursor = "linkMove";
+            _con.style.left = _left + "px";
+            _con.style.top = _top + "px";
+        };
+        document.onmouseup = function(){
+            document.onmousemove = null;
+            _head.style.cursor = "default"
+        }
+    }
+</script>
+</body>
+</html>

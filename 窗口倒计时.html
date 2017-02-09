@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        #container div{width:500px;border-radius:10px;box-shadow:3px 3px 10px 0 orangered;margin: 100px auto;line-height:100px;padding:80px;}
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="nowtime"></div>
+    <div id="countDown"></div>
+</div>
+<script>
+    //获取标签
+    var _now = document.getElementById("nowtime");
+    var _count = document.getElementById("countDown");
+
+    setInterval(function(){
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth();
+        var _d = date.getDate();
+        var day = date.getDay();
+        var hours = date.getHours();
+        var m = date.getMinutes();
+        var s = date.getSeconds();
+        var ms = date.getMilliseconds();
+
+        var time = `当前系统时间:  ${year}年${month + 1}月${_d}日 星期${day} ${hours}时${m}分${s}秒${ms}`;
+
+        var endTime = new Date("2017/1/1 00:00:00");
+        var times = endTime - date;
+        var _day = parseInt(times/1000/60/60/24);
+        var _hours = parseInt(times/1000/60/60%24);
+        var _m = parseInt(times/1000/60%60);
+        var _s = parseInt(times/1000%60);
+        var _ms = times%1000;
+        var sub = `距离2017年1月1日还有： ${_day}天${_hours}小时${_m}分钟${_s}秒${ms}`;
+
+        _now.textContent = time;
+        _count.textContent = sub
+    },33)
+
+</script>
+</body>
+</html>

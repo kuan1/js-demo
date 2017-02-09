@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        div{width:500px;height:400px;background:#ccc;border-radius:20px;margin:0 auto;overflow:hidden;}
+        #show{display:block;height:200px;width:400px;background:#00f;border-radius:20px;margin:0 auto;line-height:200px;font-weight:bold;font-family:"楷体";color:#fff;font-size:50px;text-align:center;margin-top:25px;}
+        button{height:100px;width:200px;margin:0 auto;margin-top:25px;border-radius:10px;display:block;}
+    </style>
+    <script>
+        var arr = new Array (1,2,3,4,5,6);
+        var flag = true;
+        var times ;
+        function anniu(){
+            if(flag){
+                times = setInterval(choujiang,50);
+            }else{
+                clearInterval(times);
+            }
+            flag = !flag
+        }
+
+        function choujiang(){
+            var no = parseInt(Math.random() * arr.length);
+            var s = document.getElementById("show");
+            s.innerHTML = arr[no]
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <span id="show">等待抽奖</span>
+    <button onclick = "anniu()" id="anniu">开始/暂停</button>
+</div>
+</body>
+</html>

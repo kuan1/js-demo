@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #show{display:block;width:300px;height:30px;font-size:20px;text-align: center;line-height: 30px;border:solid 1px #ccc;}
+    </style>
+</head>
+<body>
+<span id="show">点击刷新</span>
+<script>
+    var _show = document.getElementById("show");
+
+    function clock() {
+        var _date = new Date();//获取当前时间
+        var _year = _date.getFullYear();
+        var _month = _date.getMonth() + 1;
+        var _day = _date.getDate();
+        var _week = _date.getDay();
+
+        var _hours = _date.getHours();
+        var _minutes = _date.getMinutes();
+        var _second = _date.getSeconds();
+
+        _show.innerHTML = _year + "年" + _month + "月" + _day + "日 " + _hours + ":" + _minutes + ":" + _second + " 星期" + _week;
+    }
+    /*执行并显示数字时钟*/
+    setInterval(function() {
+        clock();
+    }, 1000);
+</script>
+</body>
+</html>

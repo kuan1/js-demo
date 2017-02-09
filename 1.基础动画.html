@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{width:100px;height:100px;
+            background-color: red;}
+    </style>
+</head>
+<body>
+<button id="wbtn">宽度变化</button>
+<button id="hbtn">高度变化</button>
+<button id="xbtn">水平位置变化</button>
+<button id="ybtn">垂直位置变化</button>
+    <div id="box"></div>
+
+    <script>
+        wbtn.onclick = function() {
+            setInterval(function() {
+                // 宽度动画
+                box.style.width = box.offsetWidth + 1 + "px";
+            }, 10);
+        }
+        hbtn.onclick = function() {
+            setInterval(function() {
+                //高度动画
+                box.style.height = box.offsetHeight + 1 + "px";
+            }, 10);
+        }
+        xbtn.onclick = function() {
+            box.style.position = "absolute";
+            setInterval(function() {
+                // 水平位置变化
+                box.style.left = box.offsetLeft + 1 + "px";
+            }, 10);
+        }
+        ybtn.onclick = function() {
+            box.style.position = "absolute";
+            setInterval(function () {
+                //垂直位置变化
+                box.style.top = box.offsetTop + 1 + "px";
+            }, 10);
+        }
+    </script>
+</body>
+</html>

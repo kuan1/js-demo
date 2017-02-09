@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style:none}
+        #container{width:800px;border:2px solid #ccc;box-shadow:3px 3px 3px 0 #ccc;padding:10px;position:absolute;top:50px;left:100px;}
+        #container:after,ul:after{content:".";height:0;clear:both;overflow:hidden;visibility:hidden;display:block;}
+        li{width:80px;height:30px;border:2px solid #ccc;float:left;border-bottom:2px solid orange;font-weight:bold;line-height:30px;text-align:center;cursor:pointer;}
+        li:first-child{border-left:4px solid #ccc;}
+        li:last-child{border-right:4px solid #ccc;}
+        .active{border-top:2px solid orange;border-bottom:2px solid #ccc;background:#069;color:#fff;}
+        #inner{width:80%;height:200px;border:2px solid #ccc;box-shadow:2px 2px 5px 0 #069;box-sizing:border-box;margin:50px auto;line-height:200px;text-align:center;font-size:30px;font-weight:bold;}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <ul id="menu">
+            <li class="active">汽车</li>
+            <li>限价</li>
+            <li>二手车</li>
+            <li>限价</li>
+            <li>汽车</li>
+            <li>限价</li>
+            <li>二手车</li>
+            <li>限价</li>
+        </ul>
+        <div id="inner">汽车</div>
+    </div>
+</body>
+<script>
+    //获取标签
+    var _menu = document.getElementById("menu");
+    var _lis = document.getElementById("menu").getElementsByTagName("li");
+    var _inner = document.getElementById("inner");
+    //设置鼠标移入移出事件
+    _menu.onclick = function(e){
+        e = e || window.event;
+        var target = e.target || e.srcElement;
+        if(target.nodeName.toLowerCase() == "li"){
+            for(var i = 0;i < _lis.length;i++){
+                _lis[i].className = ""
+            }
+            target.className = "active";
+            _inner.textContent = target.textContent
+        }
+    };
+    //窗口拖动
+    var _con = document.getElementById("container");
+    _con.onmousedown = function(e){
+        e = e || window.event;
+        var _x = e.offsetX;
+        var _y = e.offsetY;
+        document.onmousemove = function(e){
+            e = e || window.event;
+            _con.style.cursor = "move";
+            var _cx = e.clientX;
+            var _cy = e.clientY;
+            var _left = _cx - _x;
+            var _top = _cy - _y;
+            var _w = document.documentElement.clientWidth || document.body.clientWidth;
+            var _h = document.documentElement.clientHeight || document.body.clientHeight;
+
+            if(_left < 0 ){_left = 0}
+            if(_left > _w - _con.offsetWidth ){_left = _w - _con.offsetWidth}
+            if(_top < 0){_top = 0}
+            if(_top > _h - _con.offsetHeight){_top = _h - _con.offsetHeight}
+            _con.style.left = _left + "px";
+            _con.style.top = _top + "px";
+        };
+        document.onmouseup = function(){
+            _con.style.cursor = "default";
+            document.onmousemove = null;
+        }
+    }
+</script>
+</html>

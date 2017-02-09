@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{width:100px;height:100px;
+            background-color: red;position:absolute;}
+    </style>
+</head>
+<body>
+    <button id="btn1">加速运动</button>
+    <div id="box"></div>
+    <script>
+        btn1.onclick = function() {
+            var speed = 1;
+
+            setInterval(function() {
+                box.style.left = box.offsetLeft + speed + "px";
+
+                speed++;
+                /*
+                if(box.offsetLeft+box.offsetWidth >= document.documentElement.clientWidth) {
+                    speed = -speed;
+                    speed --;
+                }
+                if(box.offsetLeft < 0) {
+                    speed = -speed;
+                    speed++;
+                }*/
+            }, 10);
+        }
+    </script>
+</body>
+</html>

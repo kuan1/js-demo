@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <button id="btn">替换</button>
+    <div id="container">
+        <p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p><p>天地不仁以万物为刍狗</p>
+        <p>圣人不仁以百姓为刍狗</p>
+        <p>道可道非常道，名可名非常名，无名天地之始有名万物之母</p>
+    </div>
+    <script>
+        function replace() {
+            // 要求用户输入要替换的内容和替换后的内容
+            var _src = prompt("请输入要替换的内容");
+            var _target = prompt("请输入替换后的内容");
+            // 定义查询的正则
+            var reg = new RegExp(_src, "ig");
+
+            // 获取页面内容
+            var _container = document.getElementById("container");
+            var _text = _container.innerHTML;
+            // 替换过程
+            _text = _text.replace(reg, _target);
+            // 更新内容
+            _container.innerHTML = _text;
+        }
+        /*点击按钮的时候，才执行[查询|替换]过程*/
+        var _btn = document.getElementById("btn");
+        _btn.onclick = function() {
+            replace();
+        };
+    </script>
+</body>
+</html>

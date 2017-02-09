@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #box{width:100px;height:100px;
+            background-color: orange;position:absolute;}
+    </style>
+</head>
+<body>
+    <div id="box"></div>
+
+    <script>
+        // 鼠标按下
+        box.onmousedown = function(e) {
+            e = e || window.event;
+            // 当鼠标按下的时候就获取，不会变化
+            var _ox = e.offsetX;
+            var _oy = e.offsetY;
+
+            // 鼠标按下的同时，在文档上移动鼠标
+            document.onmousemove = function(e) {
+                e = e||window.event;
+                // 移动鼠标的手，鼠标在文档中的位置在变化[clientX ,clientY]
+                var _cx = e.clientX;
+                var _cy = e.clientY;
+
+                box.style.left = (_cx - _ox) + "px";
+                box.style.top = (_cy - _oy) + "px";
+            }
+        }
+
+        document.onmouseup = function() {
+            document.onmousemove = null;
+        }
+    </script>
+</body>
+</html>

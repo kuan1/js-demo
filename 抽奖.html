@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        html,body{width:100%;height:80%;background:#eee;font-family:"楷体";}
+        span{height:300px;width:300px;margin:0 auto;border-radius:50%;display:block;line-height:300px;font-size:50px;text-align:center;font-weight:bold;margin-top:10%;border:1px solid #ccc;box-shadow:1px 1px 5px 0 #ccc;}
+        button{background:#e4382a;width:300px;height:80px;margin:0 auto;line-height:80px;font-size:30px;text-align:center;color:#fff;font-weight:bold;display:block;border-radius:20px;margin-top:10px;border:0;font-family:"楷体";}
+    </style>
+</head>
+<script>
+    window.onload = function(){
+        var names = new Array("1","2","3","4","5","6");
+        var res = document.getElementById("res");
+        var flag = true;
+       /* btn.onclick  = function(){
+            var timer = setInterval(function(){
+                if(flag){
+                    var no = parseInt(Math.random() * names.length);
+                    res.textContent = names[no]
+                }else{
+                    clearTimeout(timer)
+                }
+            },200);
+            flag = !flag;
+        }*/
+
+        btn.onclick  = function(){
+            var timer = setInterval(function(){
+                if(flag){
+                    var no = parseInt(Math.random() * names.length);
+                    res.textContent = names[no]
+                }else{
+                    clearTimeout(timer)
+                }
+            },200);
+            flag = !flag;
+        }
+    }
+
+</script>
+<body>
+            <span id="res">等待</span>
+        <button id="btn">开始</button>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        body{background:#eee;}
+        *{margin:0;padding:0;}
+        li{list-style:none;}
+        .container{height:200px;width:200px;margin:200px auto;transform-style:preserve-3d;perspective:1000px;}
+        ul{height:200px;width:200px;transform-style:preserve-3d;position:relative;transition:all 0.05s ease-in;box-sizing:border-box;}
+        li{height:200px;width:200px;position:absolute;top:0;left:0;line-height:200px;font-size:50px;text-align:center;font-weight:bold;border:4px solid #ccc;border-radius:40px;background:#fff;color:#555;}
+        li:nth-child(1){transform:translateZ(100px);}
+        li:nth-child(2){transform:rotateY(180deg) translateZ(100px)}
+        li:nth-child(3){transform:rotateX(90deg) translateZ(100px)}
+        li:nth-child(4){transform:rotateX(-90deg) translateZ(100px)}
+        li:nth-child(5){transform:rotatey(90deg) translateZ(100px)}
+        li:nth-child(6){transform:rotatey(-90deg) translateZ(100px)}
+        button{display:block;height:80px;width:150px;margin:0 auto;font-size:28px;font-weight:bold;font-family:"楷体";color:#f00;border:0;border-radius:20px;}
+    </style>
+    <script>
+        var flag = true;
+        var times;
+        function anniu(){
+            if(flag){
+                times = setInterval(choujiang,50);
+            }else{
+                clearInterval(times)
+            }
+            flag = !flag;
+        }
+
+        var arr = new Array ("rotatey(-180deg)","rotatey(180deg)","rotatey(-90deg)","rotatey(90deg)","rotatex(90deg)","rotatex(-90deg)");
+
+        function choujiang(){
+            var _cube = document.getElementById("cube");
+            var no = parseInt(Math.random() * arr.length);
+            _cube.style.transform = arr[no]
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <ul id = "cube">
+        <li>壹</li>
+        <li>贰</li>
+        <li>叁</li>
+        <li>肆</li>
+        <li>伍</li>
+        <li>陆</li>
+    </ul>
+</div>
+<button onclick="anniu()" id="start">点击开始</button>
+</body>
+</html>

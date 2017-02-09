@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>百度搜索</title>
+    <style>
+        #show{display:block;width:800px;height:200px;background:orange;border:1px solid #333;}
+    </style>
+</head>
+<body>
+    <input type="text" id="word">
+    <button id="search">查询关键词</button><br />
+    <span id="show">展示搜索推荐词</span>
+
+    <!--
+    https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=
+    同源策略，主要是用来检测域名、主机、端口这些数据的
+    网页上有一个特殊的标签script，它有一个特殊的属性src，可以指向任意一个网址
+    就是利用src动态指向具体的网址，伪装访问，将访问到的数据包装成js文件，如果
+    js文件引入到网页中，是可以直接执行的
+    -->
+    <script>
+        function test(data){
+            console.log(data);
+            for(var i = 0; i < data.s.length; i++) {
+                show.textContent += data.s[i] + ";"
+            }
+        }
+    </script>
+    <!-- 手工访问百度的搜索信息 -->
+    <script src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=郑州&cb=test"></script>
+
+    <script>
+        // 由于同源策略限制，如下代码会出现Access-Control-Allow-Origin错误
+        /*
+        var cw = document.getElementById("search");
+        cw.onclick = function() {
+            var http;
+            if(window.XMLHttpRequest) {
+                http = new XMLHttpRequest();
+            } else {
+                http = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+
+            http.onreadystatechange = function(){
+                if(http.readyState == 4 && http.status == 200) {
+                    show.textContent = http.responseText;
+                    //var json = JSON.parse(http.responseText);
+                }
+            }
+
+            var wordValue = word.value;
+
+            http.open("GET", "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + wordValue,true);
+            http.send();
+        }
+        */
+    </script>
+</body>
+</html>

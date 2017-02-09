@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style:none;}
+        a{text-decoration:none;display:block;height:50px;width:50px;color:#000;}
+        #container{width:800px;margin:0 auto;border:1px solid #ccc;position:relative;}
+        [id^=floor]{height:300px;width:600px;font-size:80px;text-align:center;margin:0 auto;line-height:300px;color:#fff;}
+        [id^=floor]:nth-child(2){background:red;}
+        [id^=floor]:nth-child(3){background:blue;}
+        [id^=floor]:nth-child(4){background:green;}
+        [id^=floor]:nth-child(5){background:pink;}
+        [id^=floor]:nth-child(6){background:orange;}
+        [id^=floor]:nth-child(7){background:orangered;}
+        [id^=floor]:nth-child(8){background:black;}
+        [id^=floor]:nth-child(9){background:deeppink;}
+        [id^=floor]:nth-child(1),[id^=floor]:nth-child(10){background:#ccc;}
+        li{width:50px;height:50px;border:1px solid #000;line-height:50px;text-align:center;}
+        #flist{position:fixed;margin-left:-100px;bottom:100px;}
+        .active{background:orange;}
+        li:hover{background:orange;}
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="floorheader">header</div>
+    <div id="floor1">商品一层</div>
+    <div id="floor2">商品二层</div>
+    <div id="floor3">商品三层</div>
+    <div id="floor4">商品四层</div>
+    <div id="floor5">商品五层</div>
+    <div id="floor6">商品六层</div>
+    <div id="floor7">商品七层</div>
+    <div id="floor8">商品八层</div>
+    <div id="floorfooter">footer</div>
+    <ul id="flist">
+        <li id="f1"><a href="#floor1">一楼</a></li>
+        <li id="f2"><a href="#floor2">二楼</a></li>
+        <li id="f3"><a href="#floor3">三楼</a></li>
+        <li id="f4"><a href="#floor4">四楼</a></li>
+        <li id="f5"><a href="#floor5">五楼</a></li>
+        <li id="f6"><a href="#floor6">六楼</a></li>
+        <li id="f7"><a href="#floor7">七楼</a></li>
+        <li id="f8"><a href="#floor8">八楼</a></li>
+    </ul>
+</div>
+<script>
+    var _lis = document.getElementById("container").getElementsByTagName("li");
+    var _divs = document.getElementById("container").getElementsByTagName("div");
+    var _distance = 200;//楼层上升到某个位置
+
+    //添加滚动条事件，完成楼层亮灯效果
+    window.onscroll = function() {
+        var _stop = document.documentElement.scrollTop || document.body.scrollTop;
+        for(var i = 0;i < _lis.length;i++){
+            //获取楼层的offsetTop和offsetHeight进行比较
+            var _floorTop = _divs[i+1].offsetTop;
+            var _floorHeight = _divs[i+1].offsetHeight;
+            if(_stop + _distance >= _floorTop && _stop + _distance <= _floorTop + _floorHeight){
+                _lis[i].className = "active";
+                console.log(_lis[i])
+            }else{
+                _lis[i].className = "";
+            }
+        }
+    };
+</script>
+</body>
+</html>

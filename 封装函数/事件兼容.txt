@@ -1,0 +1,21 @@
+//浏览器滚去高度
+document.documentElement.scrollTop || document.body.scrollTop；
+document.documentElement.scrollLeft || document.body.scrollLeft
+
+//事件委托
+    ***.onclick = function(e) {
+        e = e || window.event;
+        target = e.target || e.srcElement;
+        if(target.nodeName.toLowerCase() == ***) {
+	******
+        }
+    }
+
+//冒泡事件
+ //阻止冒泡
+    **.onclick = function(e) {
+        e = e || window.event;
+        e.stopPropagation?
+                e.stopPropagation():
+                e.cancelable = true;
+    }

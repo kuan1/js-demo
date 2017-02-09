@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="images/css/style.css">
+</head>
+<body>
+<div id="bannel">
+    <img src="images/images/1.jpg" alt="">
+    <img src="images/images/2.jpg" alt="">
+    <img src="images/images/3.jpg" alt="">
+    <img src="images/images/4.jpg" alt="">
+    <img src="images/images/5.jpg" alt="">
+    <p id="prevImg">&lt;</p>
+    <p id="nextImg">&gt;</p>
+</div>
+<script>
+    // 获取所有图片标签
+    var _imgs = document.getElementsByTagName("img");
+    var _bannel = document.getElementById("bannel");
+    // 定义变量，表示图片的索引
+    var _current = 0;//当前正在展示的图片索引
+    var _next = 1;// 下一张即将展示的图片索引
+    var _p = document.getElementById("prevImg");
+    var _n = document.getElementById("nextImg");
+
+    // 让图片间隔3S切换一次
+    // var _change=setTimeout(playToLeft, 3000);
+    var _change=setTimeout(playToRight, 3000);
+
+    /**
+     * 切换不同图片——添加动态效果
+     * 函数执行一次，图片就切换一次
+     */
+    function playToLeft() {
+        var _curLeft = 0;// 当前图片的left
+        var _nexLeft = _imgs[0].offsetWidth;// 下一张图片的left
+        var _imgWidth = _imgs[0].offsetWidth;// 图片宽度
+
+        var _timer = setInterval(function() {
+            _curLeft -= 10;// 每次减小10个像素，向左移动10个像素
+            if(_curLeft < -_imgWidth) {
+                clearInterval(_timer);
+                _current++;
+                if(_current >= _imgs.length) {_current = 0;}
+            } else {
+                _imgs[_current].style.left = _curLeft + "px";
+            }
+
+            _nexLeft -= 10;// 每次减小10个像素
+            if(_nexLeft < 0) {
+                clearInterval(_timer);
+                _next ++;
+                if(_next >= _imgs.length) {_next = 0;}
+                _change = setTimeout(playToLeft, 3000);
+            } else {
+                _imgs[_next].style.left = _nexLeft + "px";
+            }
+        }, 10);
+    }
+    function playToRight() {
+        _next = _current - 1;
+        if(_next < 0) {_next = _imgs.length - 1;}
+
+        var _curLeft = 0;// 当前图片的left
+        var _nexLeft = -_imgs[0].offsetWidth;// 下一张图片的left
+        var _imgWidth = _imgs[0].offsetWidth;// 图片宽度
+
+        var _timer = setInterval(function() {
+            _curLeft += 10;// 每次减小10个像素，向左移动10个像素
+            if(_curLeft > _imgWidth) {
+                clearInterval(_timer);
+                _current--;
+                if(_current < 0) {_current = _imgs.length - 1;}
+            } else {
+                _imgs[_current].style.left = _curLeft + "px";
+            }
+
+            _nexLeft += 10;// 每次减小10个像素
+            if(_nexLeft > 0) {
+                clearInterval(_timer);
+                _next --;
+                if(_next < 0) {_next = _imgs.length - 1;}
+                _change = setTimeout(playToRight, 3000);
+            } else {
+                _imgs[_next].style.left = _nexLeft + "px";
+            }
+        }, 10);
+    }
+
+    // 扩展功能1：增加鼠标进入和移出的事件
+    // 鼠标移入，停止切换。鼠标移出，重新开始切换[提示：可能会用到开关]
+    _bannel.onmouseover = function() {
+        clearTimeout(_change);
+    }
+    _bannel.onmouseout = function() {
+        _change = setTimeout(play, 3000);
+    }
+
+    // 扩展功能2：上一张、下一张可以主动切换图片
+    // 下一张按钮:正常播放->图片从右向左移动
+    _n.onclick = function() {
+        clearTimeout(_change);// 停止切换
+        playToLeft();//直接调用函数，切换下一张
+    }
+    // 上一张:反向播放->图片从左向右移动
+    _p.onclick = function () {
+        clearTimeout(_change);// 停止切换
+        playToRight();//直接调用函数，切换下一张
+    }
+</script>
+</body>
+</html>

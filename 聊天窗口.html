@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        #container{width:700px;padding:20px;border-radius:10px;box-shadow:3px 3px 10px #069;margin:50px auto;}
+        #container>div{margin:10px;line-height:50px;font-size:30px;border-radius:10px;}
+        #msg{border:1px solid orangered;height:50px;}
+        #container #his{border:1px solid #0f0;min-height:400px;margin-top:60px;}
+        button{display:block;width:120px;height:40px;border:0;border-radius:10px;float:right;margin-right:50px;}
+        .hisMsg{line-height:30px;font-size:20px;color:orange;margin:20px;border-bottom:1px dashed orangered;}
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div contenteditable="true" id="msg"></div>
+        <button id="btn">发送消息</button>
+        <div id="his">
+            <p class="hisMsg">历史消息</p>
+        </div>
+    </div>
+</body>
+<script>
+    //获取标签
+    var _his = document.getElementById("his");
+    var _msg = document.getElementById("msg");
+    var _ps = document.getElementsByTagName("p");
+    _msg.onkeyup = function(e){
+        e =e || window.event;
+        console.log(e.keyCode)
+    };
+    btn.onclick = function(){
+        send();
+    };
+    document.onkeyup = function(e){
+        e = e || window.event;
+        if(e.keyCode == 13){
+            send()
+        }
+    };
+    function send(){
+        //创建标签
+        var _p = document.createElement("p");
+        if(_msg.textContent == ""){
+            alert("输入内容不能为空");
+            return;
+        }
+        _p.className = "hisMsg";
+        _p.textContent = _msg.textContent;
+        _his.insertBefore(_p,_ps[0]);
+        _msg.textContent = ""
+    }
+</script>
+</html>

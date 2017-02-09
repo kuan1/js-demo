@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>cude</title>
+    <style>
+        *{margin:0;padding:0;}
+        div{width:200px;height:200px;margin:100px auto;transform-style:preserve-3d;perspective:1000px;}
+        img{display:block;width:200px;height:200px;}
+        ul{position:relative;transform-style:preserve-3d;transition:5s all linear;}
+        li{list-style:none;width:200px;height:200px;position:absolute;}
+        li:nth-child(1){background:#0ff;transform:translateZ(100px);}
+        li:nth-child(2){background:#f0f;transform:translateZ(-100px);}
+        li:nth-child(3){background:#ff0;transform:rotateX(90deg) translateZ(100px);}
+        li:nth-child(4){background:#00f;transform:rotateX(-90deg) translateZ(100px);}
+        li:nth-child(5){background:#0f0;transform:rotateY(90deg) translateZ(100px);}
+        li:nth-child(6){background:#f00;transform:rotateY(-90deg) translateZ(100px);}
+        @keyframes mystyle {
+            from {transform:rotateX(-30deg) rotateY(0deg);}
+            to {transform:rotateX(-30deg) rotateY(1turn);}
+          }
+        ul{animation:mystyle 5s linear infinite}
+    </style>
+    <script>
+
+    </script>
+</head>
+<body>
+<div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+</body> 
+</html>

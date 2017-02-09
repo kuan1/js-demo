@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        span{display:block;width:300px;height:30px;margin-top:10px;border:solid 1px orange;}
+    </style>
+</head>
+<body>
+    <span id="goods1"></span>
+    <span id="goods2"></span>
+    <span id="goods3"></span>
+    <span id="goods4"></span>
+    <span id="goods5"></span>
+    <span id="goods6"></span>
+
+    <script>
+        /*倒计时代码*/
+        function countDown(_targetTime, showDom) {
+            setInterval(function() {
+                var _date = new Date();//当前时间
+                var _target = new Date(_targetTime);//过期时间
+
+                var _distance = _target - _date;//两个时间差
+
+                var _days = Math.floor(_distance/1000/60/60/24);
+                var _hours = Math.floor(_distance/1000/60/60 % 24);
+                var _min = Math.floor(_distance/1000/60 % 60);
+                var _sec = Math.floor(_distance/1000 % 60);
+                var _ms = _distance % 1000;
+
+                showDom.innerHTML = _days + "天" + _hours + "时" + _min + "分" + _sec + "秒" + _ms;
+            }, 10);
+        }
+
+        /*调用倒计时*/
+        var _g1 = document.getElementById("goods1");
+        var _g2 = document.getElementById("goods2");
+        var _g3 = document.getElementById("goods3");
+        var _g4 = document.getElementById("goods4");
+        var _g5 = document.getElementById("goods5");
+        var _g6 = document.getElementById("goods6");
+
+        countDown("2017/1/1 00:00:00", _g1);
+        countDown("2017/2/2 10:30:30", _g2);
+        countDown("2017/2/14 00:00:00", _g3);
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0}
+        #unname{height:35px;width:500px;position:relative;}
+        #pwd{width:500px;position:relative;}
+        #unname div{width:230px;height:20px;position: absolute;top:0;left:50px;background:#ffff00;border-radius: 8px;display:none;}
+        #unname input{height:30px;width:230px;}
+        #pwd  input{height:30px;width:230px;}
+        #pwd div{padding-left:50px;height:25px;}
+        #pwd p{text-align: left;}
+        #pwd span{height:12px;width:60px;border:1px solid #ccc;border-radius:8px;overflow:hidden;display:block;float:left;margin:4px 5px;}
+        #tijiao{height:30px ;width:80px; margin-left:110px}
+    </style>
+</head>
+<body>
+<form action="post" onsubmit="return validate()">
+    <div id="unname">
+        <div>请输入6——12位字母或者数字</div>
+        姓名：<input type="text" id="uname" onkeyup="valadateName()"/>
+        <span id="error"></span>
+    </div>
+    <div id="pwd">
+        密码：<input type="password" id="psd" onkeyup="validatePwd()"/>
+        <div>
+            <span id="error_p1"></span>
+            <span id="error_p2"></span>
+            <span id="error_p3"></span>
+        </div>
+        <div id="errorpwd">&nbsp;&nbsp;轻&nbsp;&nbsp;&nbsp;中&nbsp;&nbsp;&nbsp;&nbsp;强</div>
+    </div>
+    <input type="submit" value="提交信息" id="tijiao"/> </form>
+<script>
+    /*验证要求：
+用户名称不能为空，长度6~18位；不满足弹出对话框提示
+邮件地址不能为空；不满足弹出对话框提示
+联系电话不能为空，必须是11位数字组成；不满足弹出对话框提示
+详细地址不能位空；不满足弹出对话框提示
+邮政编码不能为空，必须是6位数字组成；不满足弹出对话框提示
+国家不能位空；不满足弹出对话框提示
+点击保存按钮时，必须满足上面的所有条件；不满足在页面中提示错误信息*/
+    var unname = document.getElementById("unname");
+    var er = document.getElementById("error");
+    var un = document.getElementById("uname");
+    var _div = un.previousElementSibling;
+    function valadateName(){
+        var unvalue = un.value;
+        if(unvalue.charAt(0).match(/[a-z]/ig)){
+            if(unvalue.length >= 6 && unvalue.length<=12 ){
+                er.textContent = "合法";
+                error.style.color = "green";
+                return true;
+            }else{
+                er.textContent = "长度不合法";
+                er.style.color = "red";
+                return false;
+            }
+        }else{
+            error.textContent = "首字母必须为字母";
+            error.style.color = "red";
+            return false;
+        }
+    }
+    unname.onmouseover = function(e){
+        _div.style.display = "block";
+
+        unname.onmousemove = function(e){
+            e =e ||window.event;
+            var x = e.clientX;
+            var y = e.clientY;
+            _div.style.left = x - unname.offsetLeft + 4 +"px";
+            _div.style.top = y - unname.offsetTop + 4 +"px";
+        }
+        unname.onmouseout = function(){
+            _div.style.display = "none";
+        }
+    }
+
+
+    function validatePwd() {
+        var mode = 0;
+        var pw = document.getElementById("psd");
+        var errorpwd = document.getElementById("errorpwd");
+        var pw1 = document.getElementById("error_p1");
+        var pw2 = document.getElementById("error_p2");
+        var pw3 = document.getElementById("error_p3");
+        var pwvalue = pw.value;
+        if(pwvalue.length >= 6 && pwvalue.length <= 18){
+            errorpwd.innerHTML = "&nbsp;&nbsp;轻&nbsp;&nbsp;&nbsp;中&nbsp;&nbsp;&nbsp;&nbsp;强";
+            errorpwd.style.color = "blue"
+            if(pwvalue.match(/[0-9]/g)){
+                mode++;
+            }
+            if(pwvalue.match(/[a-z]/g)){
+                mode++;
+            }
+            if(pwvalue.match(/[^a-z0-9]/ig)){
+                mode++;
+            }
+            if(mode == 1){
+                pw1.style.background = "red";
+                pw2.style.background = "";
+                pw3.style.background = "";
+            }else if(mode == 2){
+                pw1.style.background = "red";
+                pw2.style.background = "yellow";
+                pw3.style.background = "";
+
+            }else if(mode == 3){
+                pw1.style.background = "red";
+                pw2.style.background = "yellow";
+                pw3.style.background = "green";
+            }
+            return true;
+        }
+        else{
+            errorpwd.textContent = "您输入的密码长度不合法，请检查！";
+            pw1.style.background = "";
+            pw2.style.background = "";
+            pw3.style.background = "";
+            return false;
+        }
+    }
+    function validate(){
+        if(valadateName() && validatePwd() ){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+</script>
+</body>
+</html>

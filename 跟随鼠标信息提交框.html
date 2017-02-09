@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #uname{
+            width:300px;
+            height:30px;
+            line-height:30px;
+            font-size:20px;
+        }
+        #msg{
+            width:200px;
+            height:50px;
+            border:#ccc solid 1px;
+            border-radius:8px;
+            background-color: peachpuff;
+            position:absolute;
+            display:none;
+        }
+        #usernameBox{width:100%;}
+    </style>
+</head>
+<body>
+
+    <div id="usernameBox">
+        <div id="msg">请输入注册账号，长度6~12位</div>
+        账号:<input type="text" name="" id="uname" />
+        <span id="error_un"></span>
+    </div>
+
+    <script>
+        var uname = document.getElementById("usernameBox");
+        var msg = document.getElementById("msg");
+        /**
+         * 鼠标移动进输入框，显示提示信息窗口
+         */
+        uname.onmouseenter = function() {
+            msg.style.display = "block";
+            /**
+             * 鼠标在输入框内部，并且移动鼠标的时候，让输入框跟随鼠标
+             */
+            uname.onmousemove = function(e) {
+                e = e || window.event;
+                msg.style.left = e.clientX + "px";
+                msg.style.top = e.clientY + "px";
+            }
+        }
+        /**
+         * 鼠标一旦离开输入框，隐藏提示div窗口
+         */
+        uname.onmouseleave = function() {
+            msg.style.display = "none";
+        }
+    </script>
+</body>
+</html>

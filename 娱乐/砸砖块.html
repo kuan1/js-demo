@@ -1,0 +1,246 @@
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{margin:0;padding:0;}
+        li{list-style:none}
+        #outer{padding:20px 30px 40px;background:#ccc;margin:0 auto;width:400px;box-shadow:2px 2px 2px 0 #aaa;border-radius:10px;}
+        #container{height:350px;width:400px;background:#efe;position:relative;overflow:hidden;}
+        #ball{width:20px;height:20px;background:#f00;border-radius:10px;display:block;position:absolute;top:327px;left:195px;}
+        #board{width:100px;height:3px;position:absolute;top:347px;background:#069;left:150px;}
+        #btn{display:block;margin:20px auto;width:100px;height:40px;}
+        .opera{width:290px;margin:0 auto;}
+        .opera button{height:30px;width:100px;margin:20px;}
+        #show{display:block;height:350px;width:400px;line-height:350px;font-size:50px;font-weight:bold;text-align:center;position:absolute;top:-350px;transition:all 2s;}
+        #toper{width:400px;height:40px;}
+        #sore{font-size:20px;font-weight:bold;float:left}
+        #rule{position:fixed;right:200px;width:200px;background:#000;color:#fff;display:none}
+        ul{width:400px;height:350px;}
+        li{box-sizing:border-box;border:1px solid #fff;height:20px;width:40px;background:#0f0;position:absolute;}
+    </style>
+</head>
+<body>
+<div id="rule">
+    游戏规则
+    <br/>
+    用挡板接住小球，接不住游戏失败
+</div>
+<div id="outer">
+    <div id="toper">
+        <span id="sore">当前分数</span>
+    </div>
+
+    <div id="container">
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <span id="ball"></span>
+        <div id="board"></div>
+        <span id="show"></span>
+    </div>
+    <button id="btn">开始</button>
+</div>
+<div class="opera">
+    <button id="zuo">向左</button>
+    <button id="you">向右</button>
+</div>
+</body>
+<script>
+
+    //获取标签
+    var con = document.getElementById("container");
+    var show = document.getElementById("show");
+    var board = document.getElementById("board");
+    var ball = document.getElementById("ball");
+    var sore = document.getElementById("sore");
+
+
+    //将砖块平铺到游戏区域上边
+    //获取所有的砖块
+    var _li = document.getElementsByTagName("li");
+    var _left = 0;
+    var _lefti = 0;
+    var _top = 0;
+    var _col = Math.floor(con.offsetWidth / _li[0].offsetWidth);
+    for(var i = 0;i < _li.length;i++) {
+        var n1 = parseInt(Math.random() * 255);
+        var n2 = parseInt(Math.random() * 255);
+        var n3 = parseInt(Math.random() * 255);
+        var n4 = Math.random();
+        _li[i].style.backgroundColor = "rgba(" + n1 + "," + n2 + "," + n3 + ","  + n4 + ")";
+        _left = _lefti * _li[0].offsetWidth;
+        _li[i].style.left = _left + "px";
+        _li[i].style.top = _top + "px";
+        _lefti ++;
+        if((i + 1) % _col == 0 && i != 0){
+            _top += _li[i].offsetHeight;
+            _lefti = 0;
+        }
+    }
+    var t = 0;
+    //设置游戏的函数
+    var playGame = function(){
+        var ran = Math.random() * con.offsetWidth;
+        //重置数据
+        var s = 0;
+        var m = 1;
+        var n = -1;
+        ball.style.top = 327 + "px";
+        ball.style.left = ran + "px";
+        show.textContent = "Start Game";
+        show.style.top = -350 + "px";
+        sore.textContent = "你当前的分数为：0";
+        sore.style.color = "#000";
+
+
+        //小球运动的函数
+        var time = setInterval(function(){
+            ball.style.left = ball.offsetLeft  + m + "px";
+            ball.style.top = ball.offsetTop  + n + "px";
+            //判断边界
+            if(ball.offsetLeft + ball.offsetWidth >= con.offsetWidth){
+                m = -1;
+            }
+            if(ball.offsetTop <= 0){
+                n = 1;
+            }
+            if(ball.offsetLeft <= 0){
+                m = 1;
+            }
+            if(ball.offsetTop + ball.offsetHeight >= con.offsetHeight){
+                clearInterval(time);
+                show.innerHTML = "Game Over";
+                show.style.top = 0;
+                sore.style.color = "#f00";
+            }
+            for(var i = 0 ;i <  _li.length;i ++){
+                //下边届
+                if(ball.offsetTop == _li[i].offsetHeight + _li[i].offsetTop && (ball.offsetLeft >= _li[i].offsetLeft) && ball.offsetLeft <= _li[i].offsetLeft + _li[i].offsetWidth){
+                    _li[i].style.display = "none";
+                    n = 1;
+                    t++
+                }
+                //上边界
+                if(ball.offsetTop ==_li[i].offsetTop && (ball.offsetLeft >= _li[i].offsetLeft) && ball.offsetLeft <= _li[i].offsetLeft + _li[i].offsetWidth){
+                    _li[i].style.display = "none";
+                    n = -1;
+                    t++;
+                    sore.textContent = "小球弹起：" + s + "次，剩余砖块：" + (_li.length - t);
+                }
+                //左边界
+                if(ball.offsetLeft ==_li[i].offsetLeft && (ball.offsetTop >= _li[i].offsetTop) && ball.offsetTop <= _li[i].offsetTop + _li[i].offsetWidth){
+                    _li[i].style.display = "none";
+                    m = -1;
+                    t++;
+                    sore.textContent = "小球弹起：" + s + "次，剩余砖块：" + (_li.length - t);
+                }
+                //右边界
+                if(ball.offsetLeft ==_li[i].offsetLeft + _li[i].offsetWidth&& (ball.offsetTop >= _li[i].offsetTop) && ball.offsetTop <= _li[i].offsetTop + _li[i].offsetWidth){
+                    _li[i].style.display = "none";
+                    m = 1;
+                    t++;
+                    sore.textContent = "小球弹起：" + s + "次，剩余砖块：" + (_li.length - t);
+                }
+
+            }
+            if(ball.offsetTop + ball.offsetHeight >= con.offsetHeight - board.offsetHeight && (ball.offsetLeft > board.offsetLeft && ball.offsetLeft < board.offsetLeft + board.offsetWidth)){
+                n = -1;
+                s += 1;
+                sore.textContent = "小球弹起：" + s + "次，剩余砖块：" + (_li.length - t);
+            }
+            if(t - _li.length == 0){
+                sore.textContent = "小球弹起：" + s + "次，剩余砖块：" + (_li.length - t);
+                clearInterval(time);
+                show.innerHTML = "Success";
+                show.style.top = 0;
+                sore.style.color = "#f00";
+            }
+        },1);
+
+    };
+    //调用开始游戏
+    document.onkeyup =function(e){
+        e = e || window.event;
+        if(e.keyCode == 13  ){
+            playGame();
+        }
+    };
+    btn.onclick = function(){
+        playGame();
+    };
+
+    //挡板运动
+    //向左运动的函数
+    function boardLeft(){
+        board.style.left = board.offsetLeft - 30 + "px";
+        if(board.offsetLeft <= 0){
+            board.style.left = 0;
+        }
+    }
+    //向右运动的函数
+    function boardRight(){
+        board.style.left = board.offsetLeft + 30 + "px";
+        if(board.offsetLeft  + board.offsetWidth >= con.offsetWidth){
+            board.style.left = con.offsetWidth - board.offsetWidth + "px"
+        }
+    }
+    zuo.onclick = function(){
+        boardLeft()
+    };
+    you.onclick = function(){
+        boardRight()
+    };
+    document.onkeydown = function(e){
+        e = e || window.event;
+        if(e.keyCode == 37){
+            setInterval(boardLeft(),50)
+        }
+        if(e.keyCode == 39){
+            setInterval(boardRight(),50)
+        }
+    };
+
+
+
+</script>
+</html>
